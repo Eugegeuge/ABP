@@ -77,9 +77,8 @@ El desarrollo de este sistema se ha llevado a cabo sobre una máquina con Linux 
 Para desplegar la simulación completa, que permite lanzar de manera paramétrica múltiples drones interactuando coordinadamente en el entorno, se deben seguir estos pasos utilizando tres terminales independientes:
 
 \begin{enumerate}
-    \item \textbf{Preparación del Entorno (Workspace)}: Una vez clonados los paquetes (\texttt{uav\_gazebo}, \texttt{uav\_description}, \texttt{uav\_control}, \texttt{uav\_vision}), se deberá compilar el entorno completo.
+    \item \textbf{Preparación del Entorno (Workspace)}: Situándose en la raíz del workspace con los paquetes clonados (\texttt{uav\_gazebo}, \texttt{uav\_description}, \texttt{uav\_control}, \texttt{uav\_vision}), se deberá compilar e iniciar el entorno:
     \begin{verbatim}
-cd ~/Documents/abp
 colcon build --symlink-install
 source install/setup.bash
     \end{verbatim}
