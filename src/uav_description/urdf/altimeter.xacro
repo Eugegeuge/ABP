@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Altimeter Link (infrared/ultrasonic pointing down) -->
+  <link name="$(arg prefix)altimeter_link"/>
+
+  <joint name="$(arg prefix)altimeter_joint" type="fixed">
+    <parent link="$(arg prefix)base_link"/>
+    <child link="$(arg prefix)altimeter_link"/>
+    <!-- Debajo del chasis, apuntando hacia abajo (pitch = pi/2) -->
+    <origin xyz="0 0 -0.05" rpy="0 1.5708 0"/>
+  </joint>
+
+  <!-- Gazebo Sensor - Single-ray gpu_lidar acting as range altimeter -->
+  <gazebo reference="$(arg prefix)altimeter_link">
+    <sensor name="altimeter" type="gpu_lidar">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <topic>$(arg prefix)scan_altitude</topic>
+      <gz_frame_id>$(arg prefix)altimeter_link</gz_frame_id>
+      <lidar>
+        <scan>
+          <horizontal>
+            <samples>1</samples>
+            <resolution>1</resolution>
+            <min_angle>0</min_angle>
+            <max_angle>0</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </lidar>
+    </sensor>
+  </gazebo>
+
+</robot>

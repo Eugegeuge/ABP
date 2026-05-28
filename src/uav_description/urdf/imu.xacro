@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- IMU Link (invisible, no visual needed) -->
+  <link name="$(arg prefix)imu_link"/>
+
+  <joint name="$(arg prefix)imu_joint" type="fixed">
+    <parent link="$(arg prefix)base_link"/>
+    <child link="$(arg prefix)imu_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Gazebo IMU Sensor Plugin -->
+  <gazebo reference="$(arg prefix)imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>1</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>$(arg prefix)imu</topic>
+    </sensor>
+  </gazebo>
+
+</robot>

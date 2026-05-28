@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot name="uav_drone" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:arg name="prefix" default="" />
+
+    <!-- 1. Common Properties (Materials, Inertias) -->
+    <xacro:include filename="common_properties.xacro" />
+
+    <!-- 2. Sensors -->
+    <xacro:include filename="camera.xacro" />
+    <xacro:include filename="imu.xacro" />
+    <xacro:include filename="gps.xacro" />
+    <xacro:include filename="lidar.xacro" />
+    <xacro:include filename="altimeter.xacro" />
+
+    <!-- 3. Flight Control -->
+    <xacro:include filename="flight_control.xacro" />
+
+    <!-- ======================================================== -->
+    <!-- BASE DEL DRON (CHASIS)                                   -->
+    <!-- ======================================================== -->
+    <xacro:property name="chassis_length" value="0.3" />
+    <xacro:property name="chassis_width" value="0.3" />
+    <xacro:property name="chassis_height" value="0.1" />
+
+    <link name="$(arg prefix)base_footprint"/>
+
+    <joint name="$(arg prefix)base_joint" type="fixed">
+        <parent link="$(arg prefix)base_footprint"/>
+        <child link="$(arg prefix)base_link"/>
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    </joint>
+
+    <link name="$(arg prefix)base_link">
+        <visual>
+            <geometry>
+                <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+            </geometry>
+            <material name="grey"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+            </geometry>
+        </collision>
+        <xacro:box_inertia m="1.5" x="${chassis_length}" y="${chassis_width}" z="${chassis_height}" 
+                           o_xyz="0 0 0" o_rpy="0 0 0" />
+    </link>
+
+    <gazebo reference="$(arg prefix)base_link">
+        <material>Gazebo/DarkGrey</material>
+    </gazebo>
+
+</robot>

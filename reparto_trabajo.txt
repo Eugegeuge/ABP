@@ -1,0 +1,2 @@
+En todo momento hemos trabajado tanto Hugo Sevilla como Hugo López juntos con dos PCs a la vez, con una división del 50/50 del trabajo. 
+Hugo Sevilla se ha centrado más en el código y funcionamiento del entorno ROS/Gazebo, mientras que Hugo López se ha centrado más en buscar información, modelos 3D y githubs y en desarrollar la memoria y la presentación.

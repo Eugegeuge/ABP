@@ -1,0 +1,362 @@
+<sdf version='1.10'>
+  <world name='outdoor_world'>
+    <physics name='1ms' type='ignored'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <plugin name='gz::sim::systems::Physics' filename='gz-sim-physics-system'/>
+    <plugin name='gz::sim::systems::UserCommands' filename='gz-sim-user-commands-system'/>
+    <plugin name='gz::sim::systems::SceneBroadcaster' filename='gz-sim-scene-broadcaster-system'/>
+    <plugin name='gz::sim::systems::Sensors' filename='gz-sim-sensors-system'>
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin name='gz::sim::systems::Imu' filename='gz-sim-imu-system'/>
+    <plugin name='gz::sim::systems::NavSat' filename='gz-sim-navsat-system'/>
+    <gravity>0 0 -9.8000000000000007</gravity>
+    <magnetic_field>5.5644999999999998e-06 2.2875799999999999e-05 -4.2388400000000002e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>38.6987</latitude_deg>
+      <longitude_deg>-0.4735</longitude_deg>
+      <elevation>562</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <scene>
+      <ambient>0.400000006 0.400000006 0.400000006 1</ambient>
+      <background>0.699999988 0.699999988 0.699999988 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <model name='ground_plane'>
+      <static>true</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.9 0.8 0.6 1</ambient>
+            <diffuse>0.9 0.8 0.6 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr>
+              <metal>
+                <albedo_map>../textures/sand.png</albedo_map>
+              </metal>
+            </pbr>
+          </material>
+        </visual>
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <light name='sun' type='directional'>
+      <pose>0 0 10 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.1 -0.9</direction>
+      <diffuse>0.800000012 0.800000012 0.800000012 1</diffuse>
+      <specular>0.200000003 0.200000003 0.200000003 1</specular>
+      <attenuation>
+        <range>10</range>
+        <linear>1</linear>
+        <constant>1</constant>
+        <quadratic>0</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <!-- Personas (para referencia visual) -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/standing person</uri>
+      <name>person_standing</name>
+      <pose>3 0 0 0 0 0</pose>
+    </include>
+
+    <!-- ============================================ -->
+    <!--   ZONA DE RESIDUOS - Playa contaminada       -->
+    <!-- ============================================ -->
+
+    <!-- Grupo 1: Zona cercana al dron (2-5m) -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Coke%20Can</uri>
+      <name>lata_1</name>
+      <pose>3.0 0.5 0 0 0 1.3</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard%20Box</uri>
+      <name>caja_1</name>
+      <pose>3.5 1.5 0 0 0 2.5</pose>
+    </include>
+    <model name="doritos_1">
+      <static>true</static>
+      <pose>4.0 -0.8 -0.25 1.57 0 3.2</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/chips/10874_Chips_v1_L3.obj</uri><scale>0.033 0.033 0.033</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/chips/chips.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="botella_vidrio_5">
+      <static>true</static>
+      <pose>2.5 -5.0 0.12 0 -1.57 0.8</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/new_bottle/12178_bottle_v1_L2.obj</uri><scale>0.025 0.025 0.025</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/new_bottle/champ_diffuse.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doritos_4">
+      <static>true</static>
+      <pose>3.0 6.0 -0.25 1.57 0 4.1</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/chips/10874_Chips_v1_L3.obj</uri><scale>0.033 0.033 0.033</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/chips/chips.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Grupo 2: Zona media (5-10m) -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Coke%20Can</uri>
+      <name>lata_4</name>
+      <pose>6.0 2.0 0 0 0 4.8</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard%20Box</uri>
+      <name>caja_carton_1</name>
+      <pose>9.0 -2.0 0 0 0 1.2</pose>
+    </include>
+    <model name="botella_vidrio_1">
+      <static>true</static>
+      <pose>7.0 -1.5 0.12 0 -1.57 5.1</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/new_bottle/12178_bottle_v1_L2.obj</uri><scale>0.025 0.025 0.025</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/new_bottle/champ_diffuse.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doritos_2">
+      <static>true</static>
+      <pose>5.5 -3.0 -0.25 1.57 0 2.7</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/chips/10874_Chips_v1_L3.obj</uri><scale>0.033 0.033 0.033</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/chips/chips.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Coke%20Can</uri>
+      <name>lata_9</name>
+      <pose>8.0 5.5 0 0 0 0.3</pose>
+    </include>
+    <model name="doritos_5">
+      <static>true</static>
+      <pose>7.5 -6.0 -0.25 1.57 0 1.9</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/chips/10874_Chips_v1_L3.obj</uri><scale>0.033 0.033 0.033</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/chips/chips.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Grupo 3: Zona lejana (10-15m) -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Coke%20Can</uri>
+      <name>lata_6</name>
+      <pose>11.0 -3.0 0 0 0 1.1</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Coke%20Can</uri>
+      <name>lata_7</name>
+      <pose>13.0 -2.5 0 0 0 5.7</pose>
+    </include>
+    <model name="botella_vidrio_2">
+      <static>true</static>
+      <pose>14.0 0.0 0.12 0 -1.57 3.6</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/new_bottle/12178_bottle_v1_L2.obj</uri><scale>0.025 0.025 0.025</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/new_bottle/champ_diffuse.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doritos_3">
+      <static>true</static>
+      <pose>10.0 3.0 -0.25 1.57 0 2.2</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/chips/10874_Chips_v1_L3.obj</uri><scale>0.033 0.033 0.033</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/chips/chips.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="botella_vidrio_6">
+      <static>true</static>
+      <pose>12.0 6.5 0.12 0 -1.57 4.4</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/new_bottle/12178_bottle_v1_L2.obj</uri><scale>0.025 0.025 0.025</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/new_bottle/champ_diffuse.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard%20Box</uri>
+      <name>caja_carton_3</name>
+      <pose>11.5 -5.5 0 0 0 0.9</pose>
+    </include>
+
+    <!-- Grupo 4: Zona dispersa (15-20m) -->
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Cardboard%20Box</uri>
+      <name>caja_carton_2</name>
+      <pose>18.0 -1.0 0 0 0 2.4</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Coke%20Can</uri>
+      <name>lata_8</name>
+      <pose>17.0 4.0 0 0 0 5.0</pose>
+    </include>
+    <model name="botella_vidrio_3">
+      <static>true</static>
+      <pose>16.0 2.5 0.12 0 -1.57 1.2</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/new_bottle/12178_bottle_v1_L2.obj</uri><scale>0.025 0.025 0.025</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/new_bottle/champ_diffuse.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="botella_vidrio_4">
+      <static>true</static>
+      <pose>15.0 -4.0 0.12 0 -1.57 4.5</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/new_bottle/12178_bottle_v1_L2.obj</uri><scale>0.025 0.025 0.025</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/new_bottle/champ_diffuse.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doritos_6">
+      <static>true</static>
+      <pose>19.0 -6.5 -0.25 1.57 0 0.5</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><mesh><uri>file://meshes/chips/10874_Chips_v1_L3.obj</uri><scale>0.033 0.033 0.033</scale></mesh></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <pbr><metal><albedo_map>../meshes/chips/chips.jpg</albedo_map></metal></pbr>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Coke%20Can</uri>
+      <name>lata_10</name>
+      <pose>18.5 5.5 0 0 0 3.3</pose>
+    </include>
+
+
+
+  </world>
+</sdf>
